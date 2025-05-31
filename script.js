@@ -120,58 +120,61 @@ window.addEventListener('load', function() {
 const studyMaterials = [
     {
         id: 1,
-        title: "Engineering Mathematics 2 Notes",
-        subject: "Mathematics",
+        title: "Module 1 solution differentiation equation Notes",
+        subject: "Mathematics 2",
         year: "1st Year",
         price: 0.00,
         rating: 4.8,
         reviews: 124,
-        seller: "Priya Sharma",
+        seller: "Admin",
         type: "Notes",
-        pages: 45,
+        pages: 10,
         downloads: 230,
         uploadDate: "2025-01-10",
         description: "Comprehensive engineering mathematics notes covering calculus, linear algebra, differential equations, and complex analysis. Perfect for engineering students preparing for exams.",
         features: ["Step-by-step solutions", "Practice problems", "Formula sheets", "Previous year questions"],
-        fileSize: "15.2 MB",
-        format: "PDF"
-    
+        fileSize: "7.7 MB",
+        format: "PDF",
+        fileUrl: "https://www.dropbox.com/scl/fi/d9uz3ma2rif9p8h0p08sw/differential-equation.pdf?rlkey=5rgt0i3k15z7eepsc26wr1hqq&st=7yzefekb&dl=0",
+        
     },
     {
         id: 2,
-        title: "Digital Electronics Complete Guide",
-        subject: "ECE",
-        year: "2nd Year",
+        title: "Module 2 solution Graph theory Notes",
+        subject: "Mathematics 2",
+        year: "1st Year",
         price: 0.00,
         rating: 4.9,
         reviews: 89,
-        seller: "Rahul Kumar",
-        type: "Book",
-        pages: 120,
+        seller: "Admin",
+        type: "Notes",
+        pages: 11,
         downloads: 156,
         uploadDate: "2025-01-08",
-        description: "Complete guide to digital electronics covering logic gates, combinational circuits, sequential circuits, and microprocessors. Includes practical examples and circuit diagrams.",
-        features: ["Circuit diagrams", "Truth tables", "Lab experiments", "VHDL code examples"],
-        fileSize: "28.5 MB",
-        format: "PDF"
+        description: "Compete graph theory module solution  diagrams.",
+        features: ["diagrams", " tables", " experiments", "VHDL code examples"],
+        fileSize: "6.3 MB",
+        format: "PDF",
+        fileUrl: "https://www.dropbox.com/scl/fi/jndfwim2mewf5efipa3pg/module-2-graph.pdf?rlkey=bmmhsrn0nhhm3c8e0k6bp6vdb&st=8o1g1sz3&dl=0",
     },
     {
         id: 3,
-        title: "Thermodynamics Notes PDF",
-        subject: "Mechanical",
-        year: "3rd Year",
+        title: "Module 3 Laplace Theorem solution Notes PDF",
+        subject: "Mathematics  2",
+        year: "1st year",
         price: 0.00,
         rating: 4.7,
         reviews: 67,
-        seller: "Ankit Singh",
+        seller: "Admin",
         type: "Notes",
-        pages: 38,
+        pages: 16,
         downloads: 189,
         uploadDate: "2025-01-05",
-        description: "Detailed thermodynamics notes covering laws of thermodynamics, heat engines, refrigeration cycles, and entropy. Essential for mechanical engineering students.",
-        features: ["P-V diagrams", "Cycle analysis", "Property tables", "Solved examples"],
-        fileSize: "12.8 MB",
-        format: "PDF"
+        description: "Detailed laplace theorem notes covering law , laplace therom solve question  engineering students.",
+        features: ["theory", "Cycle analysis", "Property tables", "Solved examples"],
+        fileSize: "8.2 MB",
+        format: "PDF",
+        fileUrl: "https://www.dropbox.com/scl/fi/nc48soerlo2zvdrugqopn/module-2-Laplace.pdf?rlkey=pac55bdymeaypgvkxgifg08vh&st=5mhqs85m&dl=0",
     },
     {
         id: 4,
@@ -268,6 +271,7 @@ const myOrders = [
         items: ["Engineering Mathematics Notes", "Digital Electronics Guide"],
         total: 250,
         status: "completed"
+
     },
     {
         id: "ORD002",
@@ -510,6 +514,7 @@ function buyNow() {
             items: [currentProduct.title],
             total: currentProduct.price,
             status: 'completed'
+            
         };
         myOrders.unshift(newOrder);
         
@@ -519,10 +524,25 @@ function buyNow() {
     }, 2000);
 }
 
+
+
 function downloadSample() {
-    if (!currentProduct) return;
-    
+    if (!currentProduct || !currentProduct.fileUrl) {
+        showNotification('No file available to download for this product.', 'error');
+        return;
+    }
+
     showNotification('Downloading sample file...', 'info');
+
+    // Trigger download in new tab
+    const a = document.createElement('a');
+    a.href = currentProduct.fileUrl;
+    a.download = ''; // optional: add file name here
+    a.target = '_blank';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+
     setTimeout(() => {
         showNotification('Sample downloaded successfully!', 'success');
     }, 1500);
